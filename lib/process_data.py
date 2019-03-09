@@ -22,7 +22,6 @@ def get_breakPres(dataProvider):
 def process_data(dataProvider, datavisualizer):
     testplot_count = 0
     while True:
-        time.sleep(0.5)
         start_speed = get_speed(dataProvider)
         acceleration = get_acceleration(dataProvider)
         acceleration_seq = []

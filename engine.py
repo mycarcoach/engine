@@ -11,8 +11,7 @@ def main():
     
     visualizer = datavisualizer.DataVisualizer()
 
-    while 1:
-        process_data.process_data(dataProvider, visualizer)
+    process_data.process_data(dataProvider, visualizer)
 
 if __name__ == "__main__":
     main()

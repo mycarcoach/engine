@@ -16,12 +16,12 @@ def main():
                 #skip first line
             continue
         values = line.split(",")
-        speed = json.dumps('{"signal":{"definition":{"name":"speed","unit":"Unit_PerCent","description":"in km/h"},"measurement":{"value":{' + values[1] + '},"utc":1550761385086735000}}')
-        break_ = json.dumps('{"signal":{"definition":{"name":"speed","unit":"Unit_PerCent","description":"in km/h"},"measurement":{"value":{' + values[2] + '},"utc":1550761385086735000}}')
-        accel = json.dumps('{"signal":{"definition":{"name":"speed","unit":"Unit_PerCent","description":"in km/h"},"measurement":{"value":{' + values[3] + '},"utc":1550761385086735000}}')
-        client.publish("/value/ESP_v_Signal", speed, qos=0, retain=False)
-        client.publish("/value/ESP_Bremsdruck", break_, qos=0, retain=False)
-        client.publish("/value/ESP_Laengsbeschl", accel, qos=0, retain=False)
+        speed = '{"value":' + values[1] + ', "utc":1}'
+        break_ = '{"value":' + values[2] + ', "utc":1}'
+        accel = '{"value":' + values[3] + ', "utc":1}'
+        client.publish("/signal/ESP_v_Signal", speed, qos=0, retain=False)
+        client.publish("/signal/ESP_Bremsdruck", break_, qos=0, retain=False)
+        client.publish("/signal/ESP_Laengsbeschl", accel, qos=0, retain=False)
         time.sleep(0.01)
     
     client.loop_stop()

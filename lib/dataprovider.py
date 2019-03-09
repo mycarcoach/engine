@@ -42,7 +42,7 @@ class DataProvider():
         client = mqtt.Client()
         client.on_connect = on_connect
         client.on_message = on_message
-        client.connect("82.165.25.152", 1884, 60)
+        client.connect("46.101.168.60", 1883, 60)
         client.loop_forever()
 
     def getSpeed(self):
