@@ -27,39 +27,39 @@ def on_message(client, userdata, msg):
         breakePressQueue.put(msg)
     else:
         print("other topic")
-    
+
 
 # provides the data acquired from the websocket server
 class DataProvider():
 
     def __init__(self, dataProviderSource):
         self.dataProviderSource = dataProviderSource
-        
+
         self.t = threading.Thread(target=self.inputThread)
         self.t.start()
-        
+
     def inputThread(self):
         client = mqtt.Client()
         client.on_connect = on_connect
         client.on_message = on_message
         client.connect("82.165.25.152", 1884, 60)
         client.loop_forever()
-    
+
     def getSpeed(self):
         return speedQueue.get()
-    
-    def accelQueue(self):
+
+    def getAccel(self):
         return accelQueue.get()
-    
-    def breakePressQueue(self):
+
+    def getBreakePress(self):
         return breakePressQueue.get()
-    
+
     def getSpeedSize(self):
         return speedQueue.qsize()
-    
+
     def accelQueueSize(self):
         return accelQueue.qsize()
-    
+
     def breakePressQueueSize(self):
         return breakePressQueue.qsize()
 
@@ -68,9 +68,9 @@ class DataProviderSource(Enum):
     REAL = "82.165.25.152"
 
 class DataProviderConfiguration:
-    
+
     def __init__(self, signals):
         self.signals = signals
-    
+
     def getSignals(self):
         return self.signals
