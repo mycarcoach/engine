@@ -6,8 +6,7 @@ from lib import datavisualizer
 import time
 
 def main():
-    dataProviderSource = dataprovider.DataProviderSource.SIMULATION
-    dataProvider = dataprovider.DataProvider(dataProviderSource)
+    dataProvider = dataprovider.DataProvider()
     
     visualizer = datavisualizer.DataVisualizer()
 

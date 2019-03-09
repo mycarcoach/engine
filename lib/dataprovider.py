@@ -32,8 +32,7 @@ def on_message(client, userdata, msg):
 # provides the data acquired from the websocket server
 class DataProvider():
 
-    def __init__(self, dataProviderSource):
-        self.dataProviderSource = dataProviderSource
+    def __init__(self):
 
         self.t = threading.Thread(target=self.inputThread)
         self.t.start()
@@ -62,15 +61,3 @@ class DataProvider():
 
     def breakePressQueueSize(self):
         return breakePressQueue.qsize()
-
-class DataProviderSource(Enum):
-    SIMULATION = "82.165.25.152"
-    REAL = "82.165.25.152"
-
-class DataProviderConfiguration:
-
-    def __init__(self, signals):
-        self.signals = signals
-
-    def getSignals(self):
-        return self.signals

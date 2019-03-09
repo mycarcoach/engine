@@ -9,14 +9,15 @@ import time
 dataQueue = queue.Queue()
 
 def new_client(newClient, server):
-    client = newClient
-    server.send_message_to_all("Connection established")
 
     while True:
-        if not dataQueue.empty():
-            print('>>>>>> push new data to frontend')
-            server.send_message(newClient, dataQueue.get())
-        time.sleep(0.05)
+        try:
+            if not dataQueue.empty():
+                server.send_message(newClient, dataQueue.get())
+                print(f'>>>>>> pushde new data to frontend. Current queue size {dataQueue.qsize()}')
+            time.sleep(0.05)
+        except:
+            print("pipe is broken -> reconnecting")
 
 class DataVisualizer:
 
@@ -26,9 +27,11 @@ class DataVisualizer:
 
     def pushDataset(self, data):
         dataQueue.put(data)
+        print(f"Push request for new dataset. Current queue size {dataQueue.qsize()}")
 
     def thread(self):
-        server = WebsocketServer(7254, host='127.0.0.1')
-        server.set_fn_new_client(new_client)
+        while 1:
+            server = WebsocketServer(7254, host='127.0.0.1')
+            server.set_fn_new_client(new_client)
 
-        server.run_forever()
+            server.run_forever()

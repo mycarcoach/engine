@@ -423,7 +423,7 @@
           label: "Actual",
           // backgroundColor: 'red',
           borderColor: "red",
-          data: mockData.actual,
+          //data: mockData.actual,
           fill: false
         },
         {
@@ -431,7 +431,7 @@
           fill: false,
           // backgroundColor: 'blue',
           borderColor: "blue",
-          data: mockData.optimal
+          //data: mockData.optimal
         }
       ]
     },
@@ -477,7 +477,15 @@
   // Web Socket
   var ws = new WebSocket("ws://127.0.0.1:7254/");
   console.log("Websocket connect started!");
+  ws.onopen = function(event) {
+    console.log("Connected successfully!")
+  }
+  ws.onerror = function(event) {
+    console.log("Error occurred")
+    console.log(event.data)
+  }
   ws.onmessage = function(event) {
+    console.log("Got new message")
     var data = JSON.parse(event.data);
 
     var optimalData = [];
