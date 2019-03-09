@@ -1,0 +1,15 @@
+body {
+    font-family: 'Allerta Stencil';
+    font-size: 16px;
+    background: rgb(189,80,39);
+    background: linear-gradient(90deg, rgba(189,80,39,1) 0%, rgba(231,151,65,1) 37%, rgba(255,177,0,1) 100%);
+}
+
+div#main {
+    padding: 20px;
+}
+
+h1.title {
+    font-size: 28px;
+    color: white;
+}
