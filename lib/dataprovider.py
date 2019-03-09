@@ -1,38 +1,76 @@
 #!/usr/bin/env python
 from enum import Enum
 import json
-import websockets
-import asyncio
+import queue
+import threading
+import paho.mqtt.client as mqtt
+
+# must be here because of the shitty library design of paho-mqtt
+speedQueue = queue.Queue()
+accelQueue = queue.Queue()
+breakePressQueue = queue.Queue()
+signals = ["ESP_v_Signal", "ESP_Laengsbeschl", "ESP_Bremsdruck"]
+
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+
+    for signal in signals:
+        print(f"subscribing to /signal/{signal}")
+        client.subscribe(f"/signal/{signal}")
+
+def on_message(client, userdata, msg):
+    if "/signal/ESP_v_Signal"== msg.topic:
+        speedQueue.put(msg)
+    elif "/signal/ESP_Laengsbeschl" == msg.topic:
+        accelQueue.put(msg)
+    elif "/signal/ESP_Bremsdruck" == msg.topic:
+        breakePressQueue.put(msg)
+    else:
+        print("other topic")
+    
 
 # provides the data acquired from the websocket server
-class DataProvider:
+class DataProvider():
 
-    def __init__(self, dataProviderSource, dataProviderConfiguration):
+    def __init__(self, dataProviderSource):
         self.dataProviderSource = dataProviderSource
-        self.dataProviderConfiguration = dataProviderConfiguration
-        print(self.dataProviderConfiguration.getConfiguration())
-        asyncio.get_event_loop().run_until_complete(self.handler())
+        
+        self.t = threading.Thread(target=self.inputThread)
+        self.t.start()
+        
+    def inputThread(self):
+        client = mqtt.Client()
+        client.on_connect = on_connect
+        client.on_message = on_message
+        client.connect("82.165.25.152", 1884, 60)
+        client.loop_forever()
     
-    async def handler(self):
-        async with websockets.connect(f'ws://{self.dataProviderSource.value}:8765') as websocket:
-            # set initial configuration
-            await websocket.send(self.dataProviderConfiguration.getConfiguration())
-            self.data = await websocket.recv()
+    def getSpeed(self):
+        return speedQueue.get()
     
-    def getData(self):
-        return json.loads(self.data)
-            
+    def accelQueue(self):
+        return accelQueue.get()
+    
+    def breakePressQueue(self):
+        return breakePressQueue.get()
+    
+    def getSpeedSize(self):
+        return speedQueue.qsize()
+    
+    def accelQueueSize(self):
+        return accelQueue.qsize()
+    
+    def breakePressQueueSize(self):
+        return breakePressQueue.qsize()
 
 class DataProviderSource(Enum):
-    SIMULATION = "130.82.239.210"
-    REAL = "192.168.8.10"
+    SIMULATION = "82.165.25.152"
+    REAL = "82.165.25.152"
 
 class DataProviderConfiguration:
     
-    def __init__(self, signals, samplerate, withtimestamp):
+    def __init__(self, signals):
         self.signals = signals
-        self.samplerate = samplerate
-        self.withtimestamp = withtimestamp
     
-    def getConfiguration(self):
-        return json.dumps({'signals': self.signals, 'samplerate': self.samplerate, 'withtimestamp': self.withtimestamp})
+    def getSignals(self):
+        return self.signals

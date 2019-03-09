@@ -1,9 +1,17 @@
 #!/usr/bin/env python
 from lib import dataprovider
 
-if __name__ == "__main__":
+import time
+
+def main():
     dataProviderSource = dataprovider.DataProviderSource.SIMULATION
-    dataProviderConfiguration = dataprovider.DataProviderConfiguration(["MO_Drehzahl_01"], 250, True)
-    dataProvider = dataprovider.DataProvider(dataProviderSource, dataProviderConfiguration)
+    dataProvider = dataprovider.DataProvider(dataProviderSource)
+    
     while 1:
-        print(dataProvider.getData())
+        print(dataProvider.getSpeedSize())
+        print(dataProvider.accelQueueSize())
+        print(dataProvider.breakePressQueueSize())
+        time.sleep(0.05)
+
+if __name__ == "__main__":
+    main()
