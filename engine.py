@@ -7,4 +7,3 @@ if __name__ == "__main__":
     dataProvider = dataprovider.DataProvider(dataProviderSource, dataProviderConfiguration)
     while 1:
         print(dataProvider.getData())
-    
