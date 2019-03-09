@@ -1,9 +1,10 @@
 import asyncio
 import datetime
 import random
-import websockets
+import websocket
 import threading
 import queue
+import time
 
 class DataVisualizer:
     
@@ -16,15 +17,15 @@ class DataVisualizer:
         self.dataQueue.put(data)
     
     def thread(self):
-        asyncio.set_event_loop(asyncio.new_event_loop())
-        start_server = websockets.serve(self.visualProvider, '127.0.0.1', 5678)
-        asyncio.get_event_loop().run_until_complete(start_server)
-        asyncio.get_event_loop().run_forever()
-        
-
-    async def visualProvider(websocket, path):
+        print("Starting visualizer thread...")
+        websocket.enableTrace(True)
+        ws = websocket.WebSocketApp("ws://127.0.0.0:5678",
+                              on_open=self.on_open)
+        ws.run_forever()
+    
+    def on_open(self, ws):
         while True:
             if not self.dataQueue.empty():
-                await websocket.send(self.dataQueue.get())
-            await asyncio.sleep(0.1)
-
+                print("pushed data to ws client")
+                ws.send(self.dataQueue.get())
+            time.sleep(0.1)
