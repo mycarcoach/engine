@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import dataprovider
+from lib import dataprovider
 
 if __name__ == "__main__":
     dataProviderSource = dataprovider.DataProviderSource.SIMULATION

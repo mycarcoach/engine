@@ -10,10 +10,11 @@ class DataProvider:
     def __init__(self, dataProviderSource, dataProviderConfiguration):
         self.dataProviderSource = dataProviderSource
         self.dataProviderConfiguration = dataProviderConfiguration
-        asyncio.get_event_loop().run_until_complete(self.handler)
+        print(self.dataProviderConfiguration.getConfiguration())
+        asyncio.get_event_loop().run_until_complete(self.handler())
     
     async def handler(self):
-        async with websockets.connect('ws://%s:8765', self.dataProviderSource) as websocket:
+        async with websockets.connect(f'ws://{self.dataProviderSource.value}:8765') as websocket:
             # set initial configuration
             await websocket.send(self.dataProviderConfiguration.getConfiguration())
             self.data = await websocket.recv()
@@ -34,4 +35,4 @@ class DataProviderConfiguration:
         self.withtimestamp = withtimestamp
     
     def getConfiguration(self):
-        return json.dumps({'signals': [self.signals], 'samplerate': self.samplerate, 'withtimestamp': self.withtimestamp})
+        return json.dumps({'signals': self.signals, 'samplerate': self.samplerate, 'withtimestamp': self.withtimestamp})
