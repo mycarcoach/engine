@@ -5,24 +5,27 @@
   var config = {
     type: "line",
     data: {
-      labels: mockLabels,
+      // labels: [1,2,3,4,5],
+      labels: [],
       datasets: [
         {
+          data: [],
+          // data: [30,23,24,30,24],
           label: "Actual",
-          // backgroundColor: 'red',
-          borderColor: "red",
-          //data: mockData.actual,
+          borderColor: "#282078",
           fill: false,
-          pointStyle: "line",
-          pointRadius: 0
+          pointRadius: 0,
+          borderWidth: 5,
         },
         {
+          // data: [30,28,10,30,25],
+          data: [],
           label: "Optimal",
+          borderColor: "#e4e4e4",
           fill: false,
-          // backgroundColor: 'blue',
-          borderColor: "blue",
-          //data: mockData.optimal
-          pointRadius: 0
+          pointRadius: 0,
+          borderWidth: 5,
+          borderDash: [10, 3],
         }
       ]
     },
