@@ -8,24 +8,31 @@
     <meta name="description" content="Learn to drive with car coach" />
     <meta name="author" content="Flo, Elia, André" />
 
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu|Faster+One" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     <link rel="stylesheet" href="styles.css" />
   </head>
 
   <body>
-    <div id="main">
-      <div class="sidebar">
-        <img src="assets/profile.jpg" class="avatar" alt="Profile pic">
-        <h2 class="name">Lisa Speed</h2>
-        <div class="time">Time</div>
-      </div>
 
+    <div id="main">
       <div class="plot">
-        <h1 class="title">My Car Coach</h1>
+        <div class="topBar">
+            <h1 class="title animated bounceInLeft delay-2s">My Car Coach</h1>
+            <div class="profileBox animated bounceInRight delay-2s">
+              <h2 class="name">Lisa Speed</h2>
+              <img src="assets/profile.jpg" class="avatar" alt="Profile pic">
+            </div>
+        </div>
+
         <div class="canvasWrapper">
           <canvas id="speedChart" width="400" height="200"></canvas>
         </div>
       </div>
+    </div>
+
+    <div id="modal" class="animated fadeOutRight delay-2s">
+      <h1 class="title animated bounceInLeft delay-0.5s">Hi Lisa!</h1>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>

@@ -1,7 +1,6 @@
 body {
     font-family: 'Ubuntu', sans-serif;
     font-size: 16px;
-    padding: 50px 50px 50px 0;
 
     background: #F3904F;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #3B4371, #F3904F);  /* Chrome 10-25, Safari 5.1-6 */
@@ -14,26 +13,58 @@ body {
     /* background: linear-gradient(90deg, rgba(189,80,39,1) 0%, rgba(231,151,65,1) 37%, rgba(255,177,0,1) 100%); */
 }
 
+div#modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #F3904F;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #3B4371, #F3904F);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #3B4371, #F3904F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: #f0efef;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div#modal h1 {
+    font-size: 3em;
+}
+
+
 div#main {
+    padding: 20px;
     display: flex;
     flex-direction: row;
 }
 
-div.sidebar {
+div.topBar {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    width: 300px;
+}
+
+div.profileBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .avatar {
-    border-radius: 50%;
+    /* border-radius: 50%; */
+    width: 60px;
+}
+
+.name {
+    margin-right: 20px;
 }
 
 .canvasWrapper {
-    background-color: #f0efef;
-    width: 1000px;
-    padding: 50px;
+    background-color:rgba(255, 255, 255, 0);
     -webkit-box-shadow: 10px 10px 95px -37px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 95px -37px rgba(0,0,0,0.75);
     box-shadow: 10px 10px 95px -37px rgba(0,0,0,0.75);
@@ -47,7 +78,7 @@ div.plot {
 
 
 h1.title {
-    font-size: 3em;
+    font-family: 'Faster One', cursive;
+    font-size: 4em;
     color: white;
-    text-shadow: 0px 3px 8px #FFFFFF;
 }
