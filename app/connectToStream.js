@@ -4,8 +4,26 @@
   var config = {
     type: "line",
     data: {
-      labels: [],
-      datasets: []
+      labels: mockLabels,
+      datasets: [
+        {
+          label: "Actual",
+          // backgroundColor: 'red',
+          borderColor: "red",
+          //data: mockData.actual,
+          fill: false,
+          pointStyle: "line",
+          pointRadius: 0
+        },
+        {
+          label: "Optimal",
+          fill: false,
+          // backgroundColor: 'blue',
+          borderColor: "blue",
+          //data: mockData.optimal
+          pointRadius: 0
+        }
+      ]
     },
     options: {
       responsive: true,
