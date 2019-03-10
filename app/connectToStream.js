@@ -5,29 +5,8 @@
   var config = {
     type: "line",
     data: {
-      // labels: [1,2,3,4,5],
       labels: [],
-      datasets: [
-        {
-          data: [],
-          // data: [30,23,24,30,24],
-          label: "Actual",
-          borderColor: "#282078",
-          fill: false,
-          pointRadius: 0,
-          borderWidth: 5,
-        },
-        {
-          // data: [30,28,10,30,25],
-          data: [],
-          label: "Optimal",
-          borderColor: "#e4e4e4",
-          fill: false,
-          pointRadius: 0,
-          borderWidth: 5,
-          borderDash: [10, 3],
-        }
-      ]
+      datasets: []
     },
     options: {
       responsive: true,

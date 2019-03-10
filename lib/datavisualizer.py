@@ -9,7 +9,7 @@ import time
 dataQueue = queue.Queue()
 
 def new_client(newClient, server):
-
+    print("New Client connected")
     while True:
         try:
             if not dataQueue.empty():
@@ -18,6 +18,7 @@ def new_client(newClient, server):
             time.sleep(0.05)
         except:
             print("pipe is broken -> reconnecting")
+            return
 
 class DataVisualizer:
 

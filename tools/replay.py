@@ -10,7 +10,7 @@ def main():
     client.connect("46.101.168.60", 1883, 60)
     client.loop_start()
     
-    f = open("/Users/eliabieri/Downloads/testDrive.csv")
+    f = open("testDrive.csv")
     for line in f.readlines():
         if line.startswith(","):
                 #skip first line
